@@ -9,6 +9,12 @@ function _init()
 	player.y = 1
 
 	player.speed = 1
+
+ -- stores direction using negative and positive integers relative
+ -- to environment axes
+	player.facing_x = 0
+	player.facing_y = 0
+
 end
 
 
@@ -17,13 +23,10 @@ function _update()
 	target.x=player.x
 	target.y=player.y
 
-	local x=player.x
-	local y=player.y
-
-	if (btnp(0)) then x-=1 end
-	if (btnp(1)) then x+=1 end
-	if (btnp(2)) then y-=1 end
-	if (btnp(3)) then y+=1 end
+	if (btnp(0)) then x=-1 end
+	if (btnp(1)) then x=1 end
+	if (btnp(2)) then y=-1 end
+	if (btnp(3)) then y=1 end
 
 	move(x,y)
 
@@ -34,13 +37,16 @@ function move(x,y)
 	-- test passability of target
 	-- in future, will need to test passability of
 	-- all intermediate tiles
+	local target_x=player.x+x
+	local target_y=player.y+y
 
-	passable = not fget(mget(x,y),0)
-
+	passable = not fget(mget(target_x,target_y),0)
 
 	if (passable) then
-		player.x=x
-		player.y=y
+		-- eventually facing will be implied by movement tile selected
+		-- hardcoded in a lookup table at that point. but i
+		player.x=target_x
+		player.y=target_y
 	end
 end
 
