@@ -11,13 +11,13 @@ function _init()
 
 	mov = {
 		{x=-1,y=-1, facing_x=0, facing_y=0, key=nil},
-		{x=0,y=-1, facing_x=0, facing_y=-1, key=2},
+		{x=0,y=-1, facing_x=0, facing_y=-1, key=3},
 		{x=1,y=-1, facing_x=0, facing_y=0, key=nil},
-		{x=-1,y=0, facing_x=-1, facing_y=0, key=0},
+		{x=-1,y=0, facing_x=-1, facing_y=0, key=1},
 		{x=0,y=0, facing_x=0, facing_y=0, key=nil},
-		{x=1,y=0, facing_x=1, facing_y=0, key=1},
+		{x=1,y=0, facing_x=1, facing_y=0, key=0},
 		{x=-1,y=1, facing_x=0, facing_y=0, key=nil},
-		{x=0,y=1, facing_x=0, facing_y=1, key=3},
+		{x=0,y=1, facing_x=0, facing_y=1, key=2},
 		{x=1,y=1, facing_x=0, facing_y=0, key=nil}
 	}
 
@@ -77,8 +77,8 @@ function _draw()
 
  -- draw movement keypad
 	for i=1, #mov, 1 do
-		if(i!=5 and mov.key != nil) then
-			-- spr(mov.key+1,(player.x+mov[i].x)*8+2,(player.y+mov[i].y)*8+2)
+		if(i!=5 and mov[i].key != nil) then
+			 spr(mov[i].key+2,(player.x+mov[i].x)*8-3,(player.y+mov[i].y)*8+3)
 		end
 	end
 	-- debug vis
