@@ -8,7 +8,20 @@ function _init()
 	player.x = 1
 	player.y = 1
 
-	player.speed = 1
+
+	mov = {
+		{x=-1,y=-1, facing_x=0, facing_y=0},
+		{x=0,y=-1, facing_x=0, facing_y=-1},
+		{x=1,y=-1, facing_x=0, facing_y=0},
+		{x=-1,y=0, facing_x=-1, facing_y=0},
+		{x=0,y=0, facing_x=0, facing_y=0},
+		{x=1,y=0, facing_x=1, facing_y=0},
+		{x=-1,y=1, facing_x=0, facing_y=0},
+		{x=0,y=1, facing_x=0, facing_y=1},
+		{x=1,y=1, facing_x=0, facing_y=0}
+	}
+
+	printh(#mov)
 end
 
 
@@ -60,6 +73,13 @@ function _draw()
 
 	if(facing_spr!=0) then
 		spr(1+facing_spr,player.x*8,player.y*8)
+	end
+
+ -- draw movement keypad
+	for i=1, #mov, 1 do
+		if(i!=5) then
+			print(i,(player.x+mov[i].x)*8+2,(player.y+mov[i].y)*8+2)
+		end
 	end
 	-- debug vis
 
