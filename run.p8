@@ -6,22 +6,32 @@ __lua__
 function _init()
 	player = {}
 	player.x = 1
-	player.y = 1
+	player.y = 10
 
+	player.facing_x = 0
+	player.facing_y = 0
+	player.speed = 0
+
+ -- stores the movement sets. nested, first layer is player speed
+ -- second layer is button index
 
 	mov = {
-		{x=-1,y=-1, facing_x=0, facing_y=0, key=nil},
-		{x=0,y=-1, facing_x=0, facing_y=-1, key=3},
-		{x=1,y=-1, facing_x=0, facing_y=0, key=nil},
-		{x=-1,y=0, facing_x=-1, facing_y=0, key=1},
-		{x=0,y=0, facing_x=0, facing_y=0, key=nil},
-		{x=1,y=0, facing_x=1, facing_y=0, key=0},
-		{x=-1,y=1, facing_x=0, facing_y=0, key=nil},
-		{x=0,y=1, facing_x=0, facing_y=1, key=2},
-		{x=1,y=1, facing_x=0, facing_y=0, key=nil}
-	}
+		{{x=-1,y=0, facing_x=-1, facing_y=0, key=0},
+			{x=1,y=0, facing_x=1, facing_y=0, key=1},
+			{x=0,y=-1, facing_x=0, facing_y=-1, key=2},
+ 		{x=0,y=1, facing_x=0, facing_y=1, key=3}},
 
-	printh(#mov)
+		{{x=1,y=1, facing_x=1, facing_y=0, key=0, speed=1},
+			{x=-1,y=1, facing_x=-1, facing_y=0, key=1, speed=1},
+			{x=0,y=2, facing_x=0, facing_y=1, key=2, speed=2},
+			{x=0,y=1, facing_x=0, facing_y=0, key=3, speed=0}},
+
+		{{x=1,y=0, facing_x=1, facing_y=0, key=0, speed=1},
+			{x=-1,y=0, facing_x=-1, facing_y=0, key=1, speed=1},
+			{x=0,y=1, facing_x=0, facing_y=1, key=2, speed=1},
+			{x=0,y=-1, facing_x=0, facing_y=-1, key=3, speed=1}}
+		}
+
 end
 
 
@@ -29,10 +39,15 @@ function _update()
 
 	local x=0
 	local y=0
-	if (btnp(0)) then x-=1 end
-	if (btnp(1)) then x+=1 end
-	if (btnp(2)) then y-=1 end
-	if (btnp(3)) then y+=1 end
+
+	-- move based on current move set matrix
+
+	for i=0,3,1 do
+		if (btnp(i)) then
+			x+=mov[1][i+1].x
+			y+=mov[1][i+1].y
+		end
+	end
 
 	if(x != 0 or y !=0) then
 		move(x,y)
@@ -56,6 +71,7 @@ function move(x,y)
 
 		player.x+=x
 		player.y+=y
+
 	end
 end
 
@@ -71,9 +87,12 @@ function _draw()
 	if(player.facing_y == 1) then facing_spr = 3 end
 	if(player.facing_y == -1) then facing_spr = 4 end
 
+
 	if(facing_spr!=0) then
 		spr(1+facing_spr,player.x*8,player.y*8)
 	end
+	-- speed indicator show here
+
 
  -- draw movement keypad
 	for i=1, #mov, 1 do
@@ -101,7 +120,7 @@ __gfx__
 00000000006006000000000000000000000000000000000000005000000500000005500000055000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
