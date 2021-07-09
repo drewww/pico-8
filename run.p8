@@ -5,8 +5,8 @@ __lua__
 
 function _init()
 	player = {}
-	player.x = 1
-	player.y = 10
+	player.x = 3
+	player.y = 3
 
 	player.facing_x = 0
 	player.facing_y = 0
@@ -16,15 +16,16 @@ function _init()
  -- second layer is button index
 
 	mov = {
-		{{x=-1,y=0, facing_x=-1, facing_y=0, key=0, speed=1},
-			{x=1,y=0, facing_x=1, facing_y=0, key=1, speed=1},
-			{x=0,y=-1, facing_x=0, facing_y=-1, key=2, speed=1},
- 		{x=0,y=1, facing_x=0, facing_y=1, key=3, speed=1}},
+		{{x=-1,y=0, facing_x=-1, facing_y=0, key=0, speed=2},
+			{x=1,y=0, facing_x=1, facing_y=0, key=1, speed=2},
+			{x=0,y=-1, facing_x=0, facing_y=-1, key=2, speed=2},
+ 		{x=0,y=1, facing_x=0, facing_y=1, key=3, speed=2}},
 
 		{{x=-1,y=1, facing_x=-1, facing_y=0, key=0, speed=2},
 			{x=1,y=1, facing_x=1, facing_y=0, key=1, speed=2},
-			{x=0,y=2, facing_x=0, facing_y=1, key=2, speed=3},
-			{x=0,y=1, facing_x=0, facing_y=1, key=3, speed=1}},
+			{x=0,y=1, facing_x=0, facing_y=1, key=2, speed=1},
+			{x=0,y=2, facing_x=0, facing_y=1, key=3, speed=3}}
+			,
 
 		{{x=-1,y=2, facing_x=0, facing_y=1, key=0, speed=2},
 			{x=1,y=2, facing_x=0, facing_y=1, key=1, speed=2},
@@ -39,7 +40,7 @@ function _update()
 
 	local x=0
 	local y=0
-	local speed=0
+	local speed=1
 	-- move based on current move set matrix
 
 	for i=0,3,1 do
@@ -105,10 +106,9 @@ function _draw()
 	end
 	-- debug vis
 
-
 	print(player.x,0,0)
-	print(player.y,24,0)
-	print(player.speed, 0,30)
+	print(player.y,16,0)
+	print(player.speed, 32,0)
 end
 __gfx__
 00000000007007000000008000000080000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000
