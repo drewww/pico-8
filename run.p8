@@ -7,7 +7,7 @@ function _init()
 	player = {}
 	player.x = 1
 	player.y = 1
-	
+
 	player.speed = 1
 end
 
@@ -16,17 +16,17 @@ function _update()
 	target={}
 	target.x=player.x
 	target.y=player.y
-	
+
 	local x=player.x
 	local y=player.y
-	
+
 	if (btnp(0)) then x-=1 end
 	if (btnp(1)) then x+=1 end
 	if (btnp(2)) then y-=1 end
 	if (btnp(3)) then y+=1 end
-	
+
 	move(x,y)
-	
+
 end
 
 function move(x,y)
@@ -34,11 +34,11 @@ function move(x,y)
 	-- test passability of target
 	-- in future, will need to test passability of
 	-- all intermediate tiles
-	
+
 	passable = not fget(mget(x,y),0)
-	
-	
-	if (passable) then 
+
+
+	if (passable) then
 		player.x=x
 		player.y=y
 	end
@@ -47,13 +47,12 @@ end
 
 function _draw()
 	cls()
-	map(0,0,0,0,16,8)
-	map(0,8,0,64,16,8)
+	map(0,0,0,0,16,16)
 	spr(1,player.x*8,player.y*8) -- don't love the magic 8
 
 	-- debug vis
-	
-	
+
+
 	print(player.x,0,0)
 	print(player.y,24,0)
 
