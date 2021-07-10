@@ -8,18 +8,19 @@ function _init()
 	player.x = 3
 	player.y = 3
 
-	player.facing_x = 1
-	player.facing_y = 0
+	player.facing_x = 0
+	player.facing_y = -1
 	player.speed = 1
 
+ world_rot = 0
  -- stores the movement sets. nested, first layer is player speed
  -- second layer is button index
 
 	mov = {
-		{{x=-1,y=0, facing_x=-1, facing_y=0, key=0, speed=2},
-			{x=1,y=0, facing_x=1, facing_y=0, key=1, speed=2},
-			{x=0,y=-1, facing_x=0, facing_y=-1, key=2, speed=2},
- 		{x=0,y=1, facing_x=0, facing_y=1, key=3, speed=2}},
+		{{x=-1,y=0, facing_x=-1, facing_y=0, key=0, speed=1, rotate=-0.25},
+			{x=1,y=0, facing_x=1, facing_y=0, key=1, speed=1, rotate=0.25},
+			{x=0,y=-1, facing_x=0, facing_y=-1, key=2, speed=1, rotate=0},
+ 		{x=0,y=1, facing_x=0, facing_y=1, key=3, speed=1, rotate=0}},
 
 		{
 			{x=1,y=0, facing_x=1, facing_y=0, key=0, speed=1},
@@ -47,10 +48,14 @@ function _update()
 
 	for i=0,3,1 do
 		if (btnp(i)) then
-			x+=mov[player.speed][i+1].x
-			y+=mov[player.speed][i+1].y
 
-			speed=mov[player.speed][i+1].speed
+			if(mov[player.speed][i+1].rotate!=0) then
+				world_rot += mov[player.speed][i+1].rotate
+			else
+				x+=mov[player.speed][i+1].x
+				y+=mov[player.speed][i+1].y
+			end
+			-- speed=mov[player.speed][i+1].speed
 		end
 	end
 
