@@ -53,8 +53,11 @@ function _update()
 				world_rot += mov[player.speed][i+1].rotate%1
 				if(world_rot<0) then world_rot=1-world_rot end
 			else
+
+				-- rotate movement by world rot
 				x+=mov[player.speed][i+1].x
 				y+=mov[player.speed][i+1].y
+
 			end
 			-- speed=mov[player.speed][i+1].speed
 		end
@@ -107,21 +110,9 @@ function _draw()
 			-- new_x = flr(cos(angle)*l)*8+player.x*8
 			-- new_y = flr(sin(angle)*l)*8+player.y*8
 
-			vec_x=x-player.x
-			vec_y=y-player.y
+			new = rotate(x,y,player.x, player.y)
 
-			for theta=0,world_rot/0.25 do
-					vec_x *= -1
-
-					swap = vec_y
-					vec_y = vec_x
-					vec_x = swap
-			end
-
-			new_x = player.x+vec_x
-			new_y = player.y+vec_y
-
-			spr(s,new_x*8,new_y*8)
+			spr(s,new.x*8,new.y*8)
 		end
 	end
 	--
@@ -148,6 +139,21 @@ function _draw()
 	print(player.speed, 32,0)
 end
 
+
+function rotate(x,y, anchor_x, anchor_y)
+
+	vec_x=x-anchor_x
+	vec_y=y-anchor_y
+
+	for theta=0,world_rot/0.25 do
+			vec_x *= -1
+
+			swap = vec_y
+			vec_y = vec_x
+			vec_x = swap
+	end
+	return {x=vec_x+anchor_x, y=vec_y+anchor_y}
+end
 __gfx__
 00000000007007000000008000000080000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000
 000000000777777000000008000008000000080800000808000b00000000b000000bb000000bb000000000000000000000000000000000000000000000000000
