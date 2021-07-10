@@ -8,7 +8,7 @@ function _init()
 	player.x = 3
 	player.y = 3
 
-	player.facing_x = 0
+	player.facing_x = 1
 	player.facing_y = 0
 	player.speed = 1
 
@@ -21,10 +21,12 @@ function _init()
 			{x=0,y=-1, facing_x=0, facing_y=-1, key=2, speed=2},
  		{x=0,y=1, facing_x=0, facing_y=1, key=3, speed=2}},
 
-		{{x=-1,y=1, facing_x=-1, facing_y=0, key=0, speed=2},
-			{x=1,y=1, facing_x=1, facing_y=0, key=1, speed=2},
-			{x=0,y=1, facing_x=0, facing_y=1, key=2, speed=1},
-			{x=0,y=2, facing_x=0, facing_y=1, key=3, speed=3}}
+		{
+			{x=1,y=0, facing_x=1, facing_y=0, key=0, speed=1},
+			{x=2,y=0, facing_x=1, facing_y=0, key=1, speed=3},
+			{x=1,y=-1, facing_x=0, facing_y=-1, key=2, speed=2},
+			{x=1,y=1, facing_x=0, facing_y=1, key=3, speed=2},
+		}
 			,
 
 		{{x=-1,y=2, facing_x=0, facing_y=1, key=0, speed=2},
@@ -101,7 +103,20 @@ function _draw()
  -- draw movement keypad
 	for i=1, #mov[player.speed], 1 do
 		if(i!=5 and mov[player.speed][i].key != nil) then
-			 spr(mov[player.speed][i].key+6,(player.x+mov[player.speed][i].x)*8,(player.y+mov[player.speed][i].y)*8)
+				-- rotate it. zero angle is positive y direction
+				-- get facing angle
+
+				if(player.speed==1) then
+					spr(mov[player.speed][i].key+6,
+						(player.x+mov[player.speed][i].x)*8,
+						(player.y+mov[player.speed][i].y)*8)
+				else
+					angle=atan2(player.facing_x,player.facing_y)
+
+				 spr(mov[player.speed][i].key+6,
+						(player.x+mov[player.speed][i].x*cos(angle))*8,
+						(player.y+mov[player.speed][i].y*cos(angle))*8)
+				end
 		end
 	end
 	-- debug vis
@@ -109,6 +124,7 @@ function _draw()
 	print(player.x,0,0)
 	print(player.y,16,0)
 	print(player.speed, 32,0)
+	print(angle, 40,0)
 end
 __gfx__
 00000000007007000000008000000080000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000
