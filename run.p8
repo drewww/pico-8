@@ -90,12 +90,12 @@ end
 function _draw()
 	cls()
 
-	-- -- gameplan
-	-- -- iterate through all map cells.
-	-- -- get angle to player
-	-- -- adjust angle by world rotate
-	-- -- draw
-	--
+	-- gameplan
+	-- iterate through all map cells.
+	-- get angle to player
+	-- adjust angle by world rotate
+	-- draw
+
 	-- for x=0,16,1 do
 	-- 	for y=0,16,1 do
 	-- 		s = mget(x,y)
@@ -111,23 +111,23 @@ function _draw()
 	-- 	end
 	-- end
 	--
-	-- -- map(0,0,0,0,16,16)
-
+ map(0,0,0,0,16,16)
+	--
 	spr(1,player.x*8,player.y*8) -- don't love the magic 8
-
+	--
 	local facing_spr=0
 	if(player.facing_x == 1) then facing_spr = 1 end
 	if(player.facing_x == -1) then facing_spr = 2 end
 	if(player.facing_y == 1) then facing_spr = 3 end
 	if(player.facing_y == -1) then facing_spr = 4 end
-
-
+	--
+	--
 	if(facing_spr!=0) then
 		spr(1+facing_spr,player.x*8,player.y*8)
 	end
-	end
-	-- debug vis
-
+	-- end
+	-- -- debug vis
+	--
 	print(player.x,0,0)
 	print(player.y,16,0)
 	print(player.speed, 32,0)
