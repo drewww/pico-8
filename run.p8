@@ -89,7 +89,30 @@ end
 
 function _draw()
 	cls()
-	map(0,0,0,0,16,16)
+
+	-- -- gameplan
+	-- -- iterate through all map cells.
+	-- -- get angle to player
+	-- -- adjust angle by world rotate
+	-- -- draw
+	--
+	-- for x=0,16,1 do
+	-- 	for y=0,16,1 do
+	-- 		s = mget(x,y)
+	--
+	-- 		local angle = atan2(player.x-x, player.y-y)
+	-- 		angle += world_rot
+	--
+	-- 		l = sqrt(pow(x,2) + pow(y,2))
+	-- 		new_x = flr(cos(angle)*l)*8
+	-- 		new_y = flr(sin(angle)*l)*8
+	--
+	-- 		spr(s,new_x,new_y)
+	-- 	end
+	-- end
+	--
+	-- -- map(0,0,0,0,16,16)
+
 	spr(1,player.x*8,player.y*8) -- don't love the magic 8
 
 	local facing_spr=0
@@ -102,35 +125,14 @@ function _draw()
 	if(facing_spr!=0) then
 		spr(1+facing_spr,player.x*8,player.y*8)
 	end
-	-- speed indicator show here
-
-
- -- draw movement keypad
-	for i=1, #mov[player.speed], 1 do
-		if(i!=5 and mov[player.speed][i].key != nil) then
-				-- rotate it. zero angle is positive y direction
-				-- get facing angle
-
-				if(player.speed==1) then
-					spr(mov[player.speed][i].key+6,
-						(player.x+mov[player.speed][i].x)*8,
-						(player.y+mov[player.speed][i].y)*8)
-				else
-					angle=atan2(player.facing_x,player.facing_y)
-
-				 spr(mov[player.speed][i].key+6,
-						(player.x+mov[player.speed][i].x*cos(angle))*8,
-						(player.y+mov[player.speed][i].y*cos(angle))*8)
-				end
-		end
 	end
 	-- debug vis
 
 	print(player.x,0,0)
 	print(player.y,16,0)
 	print(player.speed, 32,0)
-	print(angle, 40,0)
 end
+
 __gfx__
 00000000007007000000008000000080000000000000008000000000000000000000000000000000000000000000000000000000000000000000000000000000
 000000000777777000000008000008000000080800000808000b00000000b000000bb000000bb000000000000000000000000000000000000000000000000000
