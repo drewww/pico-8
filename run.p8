@@ -122,46 +122,33 @@ function move(x,y,speed)
 	end
 end
 
-
 function _draw()
 	cls()
-
-	-- gameplan
-	-- iterate through all map cells.
-	-- get angle to player
-	-- adjust angle by world rotate
-	-- draw
-
 
  camera((player.x-8)*8, (player.y-12)*8)
 
 	-- render map relative to player location
 	-- player location is 9,12
-	-- therefore our range is
+	-- therefore our range is 16 tiles around that
 
 	for x=player.x-9,16+player.x,1 do
 		for y=player.y-12,16+player.y,1 do
 			s = mget(x,y)
-
-			-- local angle = atan2(x-player.x, y-player.y)
-
-			-- l = sqrt(x*x + y*y)
-			-- new_x = flr(cos(angle)*l)*8+player.x*8
-			-- new_y = flr(sin(angle)*l)*8+player.y*8
 
 			new = rotate(x,y,player.x, player.y)
 
 			spr(s,new.x*8,new.y*8)
 		end
 	end
-	--
- -- map(0,0,0,0,16,16)
-	--
+
 	spr(1,player.x*8,player.y*8) -- don't love the magic 8
 
-	-- -- debug vis
-	--
 	camera(0,0)
+	-- render movement ui
+
+	-- TODO render player status indicators here
+
+	-- -- debug vis
 	print(player.x,0,0)
 	print(player.y,16,0)
 	print(player.speed, 32,0)
