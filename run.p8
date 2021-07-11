@@ -154,18 +154,6 @@ function _draw()
 	--
 	spr(1,player.x*8,player.y*8) -- don't love the magic 8
 
-	--
-	local facing_spr=0
-	if(player.facing_x == 1) then facing_spr = 1 end
-	if(player.facing_x == -1) then facing_spr = 2 end
-	if(player.facing_y == 1) then facing_spr = 3 end
-	if(player.facing_y == -1) then facing_spr = 4 end
-	--
-	--
-	if(facing_spr!=0) then
-		spr(1+facing_spr,player.x*8,player.y*8)
-	end
-	-- end
 	-- -- debug vis
 	--
 	camera(0,0)
